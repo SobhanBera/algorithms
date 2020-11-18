@@ -1,0 +1,29 @@
+#include <iostream> 
+#include <string.h> 
+using namespace std; 
+#define n 255 
+ 
+void countSort(char str[]) 
+{ 
+    char output[strlen(str)]; 
+    int count[n + 1], i; 
+    memset(count, 0, sizeof(count)); 
+    for (i = 0; str[i]; ++i) 
+        ++count[str[i]]; 
+    for (i = 1; i <= n; ++i) 
+        count[i] += count[i - 1]; 
+    for (i = 0; str[i]; ++i) { 
+        output[count[str[i]] - 1] = str[i]; 
+        --count[str[i]]; 
+    } 
+    for (i = 0; str[i]; ++i) 
+        str[i] = output[i]; 
+} 
+  
+int main() 
+{ 
+    char str[] = "helloworld"; 
+    countSort(str); 
+    cout << "Sorted character array: " << str; 
+    return 0; 
+}
